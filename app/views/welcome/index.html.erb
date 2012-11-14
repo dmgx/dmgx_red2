@@ -1,5 +1,13 @@
+<% user = User.find(session[:user_id]) %>
 <h2><%= l(:label_home) %></h2>
-
+<% if Rails.env == "development" %>
+<p><%= user %></p>
+<% end %>
+<% if user.clocked_in? %>
+<button type="button" data-action="clockOut" data-user="<%= session[:user_id] %>" data-type="Daily Out" class="punch">Daily Clock Out</button>
+<% else %>
+<button type="button" data-action="clockIn" data-user="<%= session[:user_id] %>" data-type="Daily In" class="punch">Daily Clock In</button>
+<% end %>
 <div class="splitcontentleft">
   <%= textilizable Setting.welcome_text %>
   <% if @news.any? %>
@@ -10,6 +18,10 @@
   </div>
   <% end %>
   <%= call_hook(:view_welcome_index_left, :projects => @projects) %>
+  <div class="time box">
+	<h3>Timesheet</h3>
+	<%= render partial: "punches/punches", collection: user.punches unless user.punches.nil? %>
+  </div>
 </div>
 
 <div class="splitcontentright">

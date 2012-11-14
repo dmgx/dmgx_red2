@@ -1,3 +1,4 @@
+<% user = User.find(session[:user_id]) %>
 <%= form_tag({}) do -%>
 <%= hidden_field_tag 'back_url', url_for(params), :id => nil %>
 <div class="autoscroll">
@@ -13,6 +14,7 @@
       <% query.columns.each do |column| %>
         <%= column_header(column) %>
       <% end %>
+	  <th>Timer</th>
     </tr>
   </thead>
   <% previous_group = false %>
@@ -34,6 +36,11 @@
     <td class="checkbox hide-when-print"><%= check_box_tag("ids[]", issue.id, false, :id => nil) %></td>
     <td class="id"><%= link_to issue.id, issue_path(issue) %></td>
     <%= raw query.columns.map {|column| "<td class=\"#{column.css_classes}\">#{column_content(column, issue)}</td>"}.join %>
+	<% if (user.on_issue?(issue.id.to_s)) %>
+	<td><button class="issuePunch" type="button" data-issue="<%= issue.id %>" data-project="<%= issue.project.id %>" data-user="<%= user.id %>" data-action="stop">Stop Timer</button></td>
+	<% else %>
+	<td><button class="issuePunch" type="button" data-issue="<%= issue.id %>" data-project="<%= issue.project.id %>" data-user="<%= user.id %>" data-action="start">Start Timer</button></td>
+	<% end %>
   </tr>
   <% end -%>
   </tbody>

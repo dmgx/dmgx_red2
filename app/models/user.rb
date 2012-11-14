@@ -77,6 +77,7 @@ class User < Principal
   has_and_belongs_to_many :groups, :after_add => Proc.new {|user, group| group.user_added(user)},
                                    :after_remove => Proc.new {|user, group| group.user_removed(user)}
   has_many :changesets, :dependent => :nullify
+  has_many :punches
   has_one :preference, :dependent => :destroy, :class_name => 'UserPreference'
   has_one :rss_token, :class_name => 'Token', :conditions => "action='feeds'"
   has_one :api_token, :class_name => 'Token', :conditions => "action='api'"
@@ -120,6 +121,14 @@ class User < Principal
     group_id = group.is_a?(Group) ? group.id : group.to_i
     { :conditions => ["#{User.table_name}.id NOT IN (SELECT gu.user_id FROM #{table_name_prefix}groups_users#{table_name_suffix} gu WHERE gu.group_id = ?)", group_id] }
   }
+  
+  def clocked_in?
+    self.punches.where("date = ? AND punch_type_id = ?", Date.current, 8).count >= 1
+  end
+  
+  def on_issue?(issue)
+    self.punches.where("date = ? AND punch_type_id = ? AND notes = ?", Date.current, 11, "Issue " + issue + " Started").count == 1
+  end
 
   def set_mail_notification
     self.mail_notification = Setting.default_notification_option if self.mail_notification.blank?

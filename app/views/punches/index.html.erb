@@ -1,0 +1,21 @@
+<h1>Listing punches</h1>
+
+<table width="100%">
+  <tr>
+    <th style="text-align: left; width: 20%;">Time</th>
+    <th style="text-align: left; width: 20%;">Date</th>
+    <th style="text-align: left; width: 20%;">Notes</th>
+    <th style="text-align: left; width: 20%;">Edit</th>
+    <th style="text-align: left; width: 20%;">User</th>
+  </tr>
+
+<% @punches.each do |punch| %>
+  <tr>
+    <td style="text-align: left; width: 20%;"><%= punch.time.strftime("%I:%M %p") %></td>
+    <td style="text-align: left; width: 20%;"><%= punch.date.strftime("%b %d, %Y") %></td>
+    <td style="text-align: left; width: 20%;"><%= punch.notes %></td>
+    <td style="text-align: left; width: 20%;"><%= link_to 'Edit', edit_punch_path(punch) %></td>
+    <td style="text-align: left; width: 20%;"><%= punch.user %></td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,2 @@
+module PunchTypesHelper
+end

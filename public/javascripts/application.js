@@ -601,3 +601,104 @@ function addFormObserversForDoubleSubmit() {
 
 $(document).ready(hideOnLoad);
 $(document).ready(addFormObserversForDoubleSubmit);
+$(function(){
+    $('#main #content > .punch').bind('click',function(){
+		var user = $(this).attr("data-user");
+        if($(this).attr('data-action') == 'clockIn') {
+			
+            $(this).attr('data-action','clockOut');
+			$(this).attr('data-type', 'Daily Out');
+            $(this).text('Daily Clock Out');
+			$.ajax({
+				url: 'punches.json',
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					punch: {
+						user_id: user,
+						punch_type_id: 8,
+						notes: "Daily Clock In"
+					}
+				},
+				success: function(data){
+					console.log(data);
+				},
+				error: function(error){
+					console.log(error);
+				}
+			});
+        } else if($(this).attr('data-action') == 'clockOut') {
+            $(this).attr('data-action','clockIn')
+            $(this).attr('data-type', 'Daily In');
+			$(this).text('Daily Clock In');
+			$.ajax({
+				url: 'punches.json',
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					punch: {
+						user_id: user,
+						punch_type_id: 9,
+						notes: "Daily Clock Out"
+					}
+				},
+				success: function(data){
+					console.log(data);
+				},
+				error: function(error){
+					console.log(error);
+				}
+			});
+        }
+    });
+
+	$(".issuePunch").click(function(event){
+		event.preventDefault();
+		var user = $(this).attr("data-user");
+		var issue = $(this).attr("data-issue");
+		console.log(this);
+		if($(this).attr("data-action") == "start"){
+			$(this).text("Stop Timer");
+			$(this).attr("data-action","stop");
+			$.ajax({
+				url: '../../punches.json',
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					punch: {
+						user_id: user,
+						punch_type_id: 11,
+						notes: "Issue " + issue +  " Started"
+					}
+				},
+				success: function(data){
+					console.log(data);
+				},
+				error: function(error){
+					console.log(error);
+				}
+			});
+		} else {
+			$(this).text("Start Timer");
+			$(this).attr("data-action","start");
+			$.ajax({
+				url: '../../punches.json',
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					punch: {
+						user_id: user,
+						punch_type_id: 11,
+						notes: "Issue " + issue +  " Stopped"
+					}
+				},
+				success: function(data){
+					console.log(data);
+				},
+				error: function(error){
+					console.log(error);
+				}
+			});
+		}
+	});
+});

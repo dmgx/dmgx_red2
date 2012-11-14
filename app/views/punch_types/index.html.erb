@@ -1,0 +1,24 @@
+<h1>Listing punch_types</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Punch</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @punch_types.each do |punch_type| %>
+  <tr>
+    <td><%= punch_type.name %></td>
+    <td><%= link_to 'Show', punch_type %></td>
+    <td><%= link_to 'Edit', edit_punch_type_path(punch_type) %></td>
+    <td><%= link_to 'Destroy', punch_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Punch type', new_punch_type_path %>

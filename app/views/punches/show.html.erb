@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Time:</b>
+  <%= @punch.time %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @punch.date %>
+</p>
+
+
+<%= link_to 'Edit', edit_punch_path(@punch) %> |
+<%= link_to 'Back', punches_path %>
