@@ -1,4 +1,5 @@
 source 'http://rubygems.org'
+ruby '1.9.3'
 
 gem 'rails', '3.2.8'
 gem "jquery-rails", "~> 2.0.2"
@@ -6,6 +7,8 @@ gem "i18n", "~> 0.6.0"
 gem "coderay", "~> 1.0.6"
 gem "fastercsv", "~> 1.5.0", :platforms => [:mri_18, :mingw_18, :jruby]
 gem "builder", "3.0.0"
+
+gem 'heroku'
 
 # Override WebBrick
 gem 'thin'
@@ -28,11 +31,6 @@ end
 
 group :test do
   gem 'rspec'
-end
-
-local_gemfile = File.join(File.dirname(__FILE__), "Gemfile.local")
-if File.exists?(local_gemfile)
-  instance_eval File.read(local_gemfile)
 end
 
 # Load plugins' Gemfiles
