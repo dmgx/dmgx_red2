@@ -616,7 +616,7 @@ $(function(){
 				data: {
 					punch: {
 						user_id: user,
-						punch_type_id: 8,
+						punch_type_id: 1,
 						notes: "Daily Clock In"
 					}
 				},
@@ -638,7 +638,7 @@ $(function(){
 				data: {
 					punch: {
 						user_id: user,
-						punch_type_id: 9,
+						punch_type_id: 2,
 						notes: "Daily Clock Out"
 					}
 				},
@@ -667,7 +667,7 @@ $(function(){
 				data: {
 					punch: {
 						user_id: user,
-						punch_type_id: 11,
+						punch_type_id: 4,
 						notes: "Issue " + issue +  " Started"
 					}
 				},
@@ -688,7 +688,7 @@ $(function(){
 				data: {
 					punch: {
 						user_id: user,
-						punch_type_id: 11,
+						punch_type_id: 4,
 						notes: "Issue " + issue +  " Stopped"
 					}
 				},

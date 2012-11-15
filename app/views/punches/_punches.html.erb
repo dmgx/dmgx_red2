@@ -6,16 +6,16 @@
     <th style="text-align: left; width: 20%;">Time</th>
     <th style="text-align: left; width: 20%;">Date</th>
     <th style="text-align: left; width: 20%;">Type</th>
-	<th style="text-align: left; width: 20%;">Notes</th>
-	<th style="text-align: left; width: 20%;">Actions</th>
+	  <th style="text-align: left; width: 20%;">Notes</th>
+	  <th style="text-align: left; width: 20%;">Actions</th>
   </tr>
 
   <tr>
     <td style="text-align: left; width: 20%;"><%= punches.time.strftime("%I:%M %p") %></td>
     <td style="text-align: left; width: 20%;"><%= punches.date.strftime("%b %d, %Y") %></td>
-	<td style="text-align: left; width: 20%;"><%= punches.punch_type.name %></td>
-	<td style="text-align: left; width: 20%;"><%= punches.notes %></td>
-	<td style="text-align: left; width: 20%;"><%= link_to "Edit", edit_punch_path(id: punches.id) %></td>
+	  <td style="text-align: left; width: 20%;"><%= punches.punch_type.name unless punches.punch_type.nil? %></td>
+	  <td style="text-align: left; width: 20%;"><%= punches.notes %></td>
+	  <td style="text-align: left; width: 20%;"><%= link_to "Edit", edit_punch_path(id: punches.id) %></td>
   </tr>
 </table>
 <% end %>
